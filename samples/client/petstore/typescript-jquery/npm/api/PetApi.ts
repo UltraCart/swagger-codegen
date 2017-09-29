@@ -112,7 +112,7 @@ export class PetApi {
      * @param apiKey 
      */
     public deletePet(petId: number, apiKey?: string): JQueryPromise<{ response: JQueryXHR; body?: any;  }> {
-        let localVarPath = this.basePath + '/pet/{petId}'.replace('{' + 'petId' + '}', String(petId));
+        let localVarPath = this.basePath + '/pet/{petId}'.replace('{' + 'petId' + '}', encodeURIComponent(String(petId)));
 
         let queryParameters: any = {};
         let headerParams: any = {};
@@ -120,7 +120,6 @@ export class PetApi {
         if (petId === null || petId === undefined) {
             throw new Error('Required parameter petId was null or undefined when calling deletePet.');
         }
-
 
 
         localVarPath = localVarPath + "?" + $.param(queryParameters);
@@ -295,7 +294,7 @@ export class PetApi {
      * @param petId ID of pet to return
      */
     public getPetById(petId: number): JQueryPromise<{ response: JQueryXHR; body: models.Pet;  }> {
-        let localVarPath = this.basePath + '/pet/{petId}'.replace('{' + 'petId' + '}', String(petId));
+        let localVarPath = this.basePath + '/pet/{petId}'.replace('{' + 'petId' + '}', encodeURIComponent(String(petId)));
 
         let queryParameters: any = {};
         let headerParams: any = {};
@@ -414,7 +413,7 @@ export class PetApi {
      * @param status Updated status of the pet
      */
     public updatePetWithForm(petId: number, name?: string, status?: string): JQueryPromise<{ response: JQueryXHR; body?: any;  }> {
-        let localVarPath = this.basePath + '/pet/{petId}'.replace('{' + 'petId' + '}', String(petId));
+        let localVarPath = this.basePath + '/pet/{petId}'.replace('{' + 'petId' + '}', encodeURIComponent(String(petId)));
 
         let queryParameters: any = {};
         let headerParams: any = {};
@@ -427,17 +426,13 @@ export class PetApi {
         }
 
 
-
-
         localVarPath = localVarPath + "?" + $.param(queryParameters);
         if (name !== null && name !== undefined) {
             formParams.append('name', <any>name);
         }
-
         if (status !== null && status !== undefined) {
             formParams.append('status', <any>status);
         }
-
         // to determine the Content-Type header
         let consumes: string[] = [
             'application/x-www-form-urlencoded'
@@ -496,7 +491,7 @@ export class PetApi {
      * @param file file to upload
      */
     public uploadFile(petId: number, additionalMetadata?: string, file?: any): JQueryPromise<{ response: JQueryXHR; body: models.ApiResponse;  }> {
-        let localVarPath = this.basePath + '/pet/{petId}/uploadImage'.replace('{' + 'petId' + '}', String(petId));
+        let localVarPath = this.basePath + '/pet/{petId}/uploadImage'.replace('{' + 'petId' + '}', encodeURIComponent(String(petId)));
 
         let queryParameters: any = {};
         let headerParams: any = {};
@@ -509,18 +504,12 @@ export class PetApi {
         }
 
 
-
-
         localVarPath = localVarPath + "?" + $.param(queryParameters);
         if (additionalMetadata !== null && additionalMetadata !== undefined) {
             formParams.append('additionalMetadata', <any>additionalMetadata);
         }
-
         reqHasFile = true;
-        if (file !== null && file !== undefined) {
-            formParams.append('file', <any>file);
-        }
-
+        formParams.append("file", file);
         // to determine the Content-Type header
         let consumes: string[] = [
             'multipart/form-data'
