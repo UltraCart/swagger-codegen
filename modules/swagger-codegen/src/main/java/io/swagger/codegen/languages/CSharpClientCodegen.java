@@ -1,28 +1,24 @@
 package io.swagger.codegen.languages;
 
 import com.google.common.collect.ImmutableMap;
-
-import com.sun.org.apache.bcel.internal.classfile.Code;
-
-import io.swagger.codegen.CodegenConstants;
-import io.swagger.codegen.CodegenType;
-import io.swagger.codegen.CodegenModel;
-import io.swagger.codegen.CodegenParameter;
-import io.swagger.codegen.SupportingFile;
-import io.swagger.codegen.CodegenProperty;
-import io.swagger.codegen.CodegenOperation;
 import io.swagger.codegen.CliOption;
+import io.swagger.codegen.CodegenConstants;
+import io.swagger.codegen.CodegenModel;
+import io.swagger.codegen.CodegenOperation;
+import io.swagger.codegen.CodegenParameter;
+import io.swagger.codegen.CodegenProperty;
+import io.swagger.codegen.CodegenType;
+import io.swagger.codegen.SupportingFile;
 import io.swagger.models.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
@@ -53,8 +49,14 @@ public class CSharpClientCodegen extends AbstractCSharpCodegen {
     // By default, generated code is considered public
     protected boolean nonPublicApi = Boolean.FALSE;
 
+
+    public boolean hasUltraCartExtension(){
+        return true;
+    }
+
     public CSharpClientCodegen() {
         super();
+
         modelTemplateFiles.put("model.mustache", ".cs");
         apiTemplateFiles.put("api.mustache", ".cs");
 
@@ -155,7 +157,7 @@ public class CSharpClientCodegen extends AbstractCSharpCodegen {
                 CodegenConstants.NETCORE_PROJECT_FILE_DESC,
                 this.netCoreProjectFileFlag);
 
-        regexModifiers = new HashMap<Character, String>();
+        regexModifiers = new HashMap<>();
         regexModifiers.put('i', "IgnoreCase");
         regexModifiers.put('m', "Multiline");
         regexModifiers.put('s', "Singleline");
@@ -424,6 +426,11 @@ public class CSharpClientCodegen extends AbstractCSharpCodegen {
     }
 
     @Override
+    public String getSampleSuffix(){
+        return "cs";
+    }
+
+    @Override
     public String getHelp() {
         return "Generates a CSharp client library.";
     }
@@ -488,7 +495,7 @@ public class CSharpClientCodegen extends AbstractCSharpCodegen {
             }
 
             String regex = pattern.substring(1, i).replace("'", "\'");
-            List<String> modifiers = new ArrayList<String>();
+            List<String> modifiers = new ArrayList<>();
 
             // perl requires an explicit modifier to be culture specific and .NET is the reverse.
             modifiers.add("CultureInvariant");

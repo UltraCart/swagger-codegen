@@ -12,17 +12,23 @@ import io.swagger.codegen.SupportingFile;
 import io.swagger.models.Model;
 import io.swagger.models.Operation;
 import io.swagger.models.Swagger;
-import io.swagger.models.properties.*;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-
+import io.swagger.models.properties.ArrayProperty;
+import io.swagger.models.properties.BooleanProperty;
+import io.swagger.models.properties.DoubleProperty;
+import io.swagger.models.properties.FloatProperty;
+import io.swagger.models.properties.IntegerProperty;
+import io.swagger.models.properties.LongProperty;
+import io.swagger.models.properties.MapProperty;
+import io.swagger.models.properties.Property;
+import io.swagger.models.properties.StringProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Map;
 
 public class RubyClientCodegen extends DefaultCodegen implements CodegenConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger(RubyClientCodegen.class);
@@ -44,7 +50,7 @@ public class RubyClientCodegen extends DefaultCodegen implements CodegenConfig {
     protected String libFolder = "lib";
     protected String gemLicense = "proprietary";
     protected String gemRequiredRubyVersion = ">= 1.9";
-    protected String gemHomepage = "http://swagger.io";
+    protected String gemHomepage = "https://github.com/UltraCart/rest_api_v2_sdk_ruby";
     protected String gemSummary = "A ruby wrapper for the swagger APIs";
     protected String gemDescription = "This gem maps to a swagger API";
     protected String gemAuthor = "";

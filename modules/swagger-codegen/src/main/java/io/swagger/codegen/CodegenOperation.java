@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.Arrays;
 
 public class CodegenOperation {
-    public final List<CodegenProperty> responseHeaders = new ArrayList<CodegenProperty>();
+    public final List<CodegenProperty> responseHeaders = new ArrayList<>();
     public boolean hasAuthMethods, hasConsumes, hasProduces, hasParams, hasOptionalParams,
             returnTypeIsPrimitive, returnSimpleType, subresourceOperation, isMapContainer,
             isListContainer, isMultipart, hasMore = true,
@@ -22,16 +22,16 @@ public class CodegenOperation {
             returnContainer, summary, unescapedNotes, notes, baseName, defaultResponse, discriminator;
     public List<Map<String, String>> consumes, produces, prioritizedContentTypes;
     public CodegenParameter bodyParam;
-    public List<CodegenParameter> allParams = new ArrayList<CodegenParameter>();
-    public List<CodegenParameter> bodyParams = new ArrayList<CodegenParameter>();
-    public List<CodegenParameter> pathParams = new ArrayList<CodegenParameter>();
-    public List<CodegenParameter> queryParams = new ArrayList<CodegenParameter>();
-    public List<CodegenParameter> headerParams = new ArrayList<CodegenParameter>();
-    public List<CodegenParameter> formParams = new ArrayList<CodegenParameter>();
+    public List<CodegenParameter> allParams = new ArrayList<>();
+    public List<CodegenParameter> bodyParams = new ArrayList<>();
+    public List<CodegenParameter> pathParams = new ArrayList<>();
+    public List<CodegenParameter> queryParams = new ArrayList<>();
+    public List<CodegenParameter> headerParams = new ArrayList<>();
+    public List<CodegenParameter> formParams = new ArrayList<>();
     public List<CodegenSecurity> authMethods;
     public List<Tag> tags;
-    public List<CodegenResponse> responses = new ArrayList<CodegenResponse>();
-    public Set<String> imports = new HashSet<String>();
+    public List<CodegenResponse> responses = new ArrayList<>();
+    public Set<String> imports = new HashSet<>();
     public List<Map<String, String>> examples;
     public ExternalDocs externalDocs;
     public Map<String, Object> vendorExtensions;
@@ -39,6 +39,7 @@ public class CodegenOperation {
     public String operationIdLowerCase; // for markdown documentation
     public String operationIdCamelCase; // for class names
     public String operationIdSnakeCase;
+    public String sample;
 
     /**
      * Check if there's at least one parameter

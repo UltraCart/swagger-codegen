@@ -1,5 +1,6 @@
 package io.swagger.codegen;
 
+import com.samskivert.mustache.Mustache.Compiler;
 import io.swagger.models.Model;
 import io.swagger.models.Operation;
 import io.swagger.models.Swagger;
@@ -9,8 +10,6 @@ import io.swagger.models.properties.Property;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import com.samskivert.mustache.Mustache.Compiler;
 
 public interface CodegenConfig {
     CodegenType getTag();
@@ -34,6 +33,10 @@ public interface CodegenConfig {
     String apiDocFileFolder();
 
     String fileSuffix();
+
+    default String getSampleSuffix(){
+        return "txt";
+    }
 
     String outputFolder();
 

@@ -1,13 +1,13 @@
 package io.swagger.codegen;
 
+import io.swagger.models.ExternalDocs;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.Objects;
-
-import io.swagger.models.ExternalDocs;
 
 
 public class CodegenModel {
@@ -34,6 +34,7 @@ public class CodegenModel {
     public List<CodegenProperty> allVars;
     public List<CodegenProperty> parentVars = new ArrayList<>();
     public Map<String, Object> allowableValues;
+    public String sample;
 
     // Sorted sets of required parameters.
     public Set<String> mandatory = new TreeSet<String>();
