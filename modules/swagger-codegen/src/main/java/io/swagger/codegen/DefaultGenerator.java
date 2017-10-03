@@ -255,7 +255,7 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
       }
 
     }
-    
+
   }
 
 
@@ -1088,13 +1088,14 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
 
     operations.put("imports", imports);
 
-    // add a flag to indicate whether there's any {{import}}
-    if (imports.size() > 0) {
-      operations.put("hasImport", true);
-    }
-    config.postProcessOperations(operations);
-    if (objs.size() > 0) {
-      List<CodegenOperation> os = (List<CodegenOperation>) objs.get("operation");
+        // add a flag to indicate whether there's any {{import}}
+        if (imports.size() > 0) {
+            operations.put("hasImport", true);
+        }
+        config.postProcessOperations(operations);
+        config.postProcessOperationsWithModels(operations, allModels);
+        if (objs.size() > 0) {
+            List<CodegenOperation> os = (List<CodegenOperation>) objs.get("operation");
 
       if (os != null && os.size() > 0) {
         CodegenOperation op = os.get(os.size() - 1);

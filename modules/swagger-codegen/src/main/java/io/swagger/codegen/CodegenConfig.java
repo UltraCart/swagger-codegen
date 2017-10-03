@@ -156,6 +156,8 @@ public interface CodegenConfig {
 
     Map<String, Object> postProcessOperations(Map<String, Object> objs);
 
+    Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels);
+
     Map<String, Object> postProcessSupportingFileData(Map<String, Object> objs);
 
     void postProcessModelProperty(CodegenModel model, CodegenProperty property);
