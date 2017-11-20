@@ -47,7 +47,7 @@ Then run `composer install`
 Download the files and include `autoload.php`:
 
 ```php
-    require_once('/path/to/{{packagePath}}/vendor/autoload.php');
+    require_once('/path/to/vendor/whatever_you_named_your_ultracart_sdk_directory/autoload.php');
 ```
 
 ## Tests
@@ -64,32 +64,52 @@ composer install
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
 ```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-{{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}{{#hasAuthMethods}}{{#authMethods}}{{#isBasic}}
-// Configure HTTP basic authorization: {{{name}}}
-{{{invokerPackage}}}\Configuration::getDefaultConfiguration()->setUsername('YOUR_USERNAME');
-{{{invokerPackage}}}\Configuration::getDefaultConfiguration()->setPassword('YOUR_PASSWORD');{{/isBasic}}{{#isApiKey}}
-// Configure API key authorization: {{{name}}}
-{{{invokerPackage}}}\Configuration::getDefaultConfiguration()->setApiKey('{{{keyParamName}}}', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// {{{invokerPackage}}}\Configuration::getDefaultConfiguration()->setApiKeyPrefix('{{{keyParamName}}}', 'Bearer');{{/isApiKey}}{{#isOAuth}}
-// Configure OAuth2 access token for authorization: {{{name}}}
-{{{invokerPackage}}}\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');{{/isOAuth}}{{/authMethods}}
-{{/hasAuthMethods}}
+<?php /* docs.ultracart.com sample */ ?>
 
-$api_instance = new {{invokerPackage}}\Api\{{classname}}();
-{{#allParams}}${{paramName}} = {{{example}}}; // {{{dataType}}} | {{{description}}}
-{{/allParams}}
+<?php
+// for testing and development only
+set_time_limit(3000);
+ini_set('max_execution_time', 3000);
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+?>
+
+<?php
+// initialization code
+require_once './vendor/autoload.php';
+$simple_key = '4256aaf6dfedfa01582fe9a961ab0100216d737b874a4801582fe9a961ab0100';
+ultracart\v2\Configuration::getDefaultConfiguration()->setApiKey('x-ultracart-simple-key', $simple_key);
+
+$client = new GuzzleHttp\Client(['verify' => true, 'debug' => false]);
+$config = ultracart\v2\Configuration::getDefaultConfiguration();
+$headerSelector = new \ultracart\v2\HeaderSelector(/* leave null for version tied to this sdk version */);
+
+$auto_order_api = new ultracart\v2\Api\AutoorderApi($client, $config, $headerSelector);
+?>
+
+<html>
+<body>
+<?php
 
 try {
-    {{#returnType}}$result = {{/returnType}}$api_instance->{{{operationId}}}({{#allParams}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});{{#returnType}}
-    print_r($result);{{/returnType}}
-} catch (Exception $e) {
-    echo 'Exception when calling {{classname}}->{{operationId}}: ', $e->getMessage(), PHP_EOL;
+    $auto_order_oid = 2078718;  // this is found either by looping through auto orders, or from the back end.
+    $auto_order_response = $auto_order_api->getAutoOrder($auto_order_oid, "items");
+    $auto_order = $auto_order_response->getAutoOrder();
+    $auto_order->getItems()[0]->setArbitraryQuantity(4);
+    $auto_order_response = $auto_order_api->updateAutoOrder($auto_order, $auto_order_oid);
+
+} catch (\ultracart\v2\ApiException $e) {
+    error_log($e->getResponseBody());
 }
-{{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
+
 ?>
+<pre>
+<?php echo print_r($auto_order); ?>
+<?php echo print_r($auto_order_response); ?>
+</pre>
+<?php echo 'Finished.'; ?>
+</body>
+</html>
 ```
 
 ## Documentation for API Endpoints

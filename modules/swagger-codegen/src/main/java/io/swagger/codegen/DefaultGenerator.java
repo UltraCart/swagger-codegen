@@ -414,7 +414,7 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
   }
 
 
-  private void generateApis(List<File> files, List<Object> allOperations) {
+  private void generateApis(List<File> files, List<Object> allOperations, List<Object> allModels) {
     if (!generateApis) {
       return;
     }
@@ -437,7 +437,7 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
       try {
         List<CodegenOperation> ops = paths.get(tag);
         ops.sort((one, another) -> ObjectUtils.compare(one.operationId, another.operationId));
-        Map<String, Object> operation = processOperations(config, tag, ops);
+        Map<String, Object> operation = processOperations(config, tag, ops, allModels);
 
         operation.put("basePath", basePath);
         operation.put("basePathWithoutHost", basePathWithoutHost);
@@ -838,7 +838,7 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
     generateModels(files, allModels);
     // apis
     List<Object> allOperations = new ArrayList<>();
-    generateApis(files, allOperations);
+    generateApis(files, allOperations, allModels);
 
     // supporting files
     Map<String, Object> bundle = buildSupportFileBundle(allOperations, allModels);
@@ -1045,7 +1045,7 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
   }
 
 
-  private Map<String, Object> processOperations(CodegenConfig config, String tag, List<CodegenOperation> ops) {
+  private Map<String, Object> processOperations(CodegenConfig config, String tag, List<CodegenOperation> ops, List<Object> allModels) {
     Map<String, Object> operations = new HashMap<>();
     Map<String, Object> objs = new HashMap<>();
     objs.put("classname", config.toApiName(tag));
