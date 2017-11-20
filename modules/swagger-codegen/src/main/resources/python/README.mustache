@@ -53,34 +53,55 @@ import {{{packageName}}}
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
 ```python
-from __future__ import print_function
-import time
-import {{{packageName}}}
-from {{{packageName}}}.rest import ApiException
+# retrieve an auto order
+import ultracart
+from ultracart.rest import ApiException
+from ultracart import ApiClient
 from pprint import pprint
-{{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}{{#hasAuthMethods}}{{#authMethods}}{{#isBasic}}
-# Configure HTTP basic authorization: {{{name}}}
-{{{packageName}}}.configuration.username = 'YOUR_USERNAME'
-{{{packageName}}}.configuration.password = 'YOUR_PASSWORD'{{/isBasic}}{{#isApiKey}}
-# Configure API key authorization: {{{name}}}
-{{{packageName}}}.configuration.api_key['{{{keyParamName}}}'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# {{{packageName}}}.configuration.api_key_prefix['{{{keyParamName}}}'] = 'Bearer'{{/isApiKey}}{{#isOAuth}}
-# Configure OAuth2 access token for authorization: {{{name}}}
-{{{packageName}}}.configuration.access_token = 'YOUR_ACCESS_TOKEN'{{/isOAuth}}{{/authMethods}}
-{{/hasAuthMethods}}
-# create an instance of the API class
-api_instance = {{{packageName}}}.{{{classname}}}()
-{{#allParams}}{{paramName}} = {{{example}}} # {{{dataType}}} | {{{description}}}{{^required}} (optional){{/required}}{{#defaultValue}} (default to {{{.}}}){{/defaultValue}}
-{{/allParams}}
+
+ultracart.configuration.api_key['x-ultracart-simple-key'] \
+    = '508052342b482a015d85c69048030a0005a9da7cea5afe015d85c69048030a00'
+ultracart.configuration.debug = True
+
+api_client = ApiClient(header_name='X-UltraCart-Api-Version', header_value='2017-03-01')
+api_instance = ultracart.AutoorderApi(api_client)
+
+auto_order_oid = 3268342  # int | The auto order oid to retrieve.
+expand = 'items'  # str | The object expansion to perform on the result.  See documentation for examples (optional)
 
 try:
-{{#summary}}    # {{{.}}}
-{{/summary}}    {{#returnType}}api_response = {{/returnType}}api_instance.{{{operationId}}}({{#allParams}}{{#required}}{{paramName}}{{/required}}{{^required}}{{paramName}}={{paramName}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/allParams}}){{#returnType}}
-    pprint(api_response){{/returnType}}
+
+    auto_order_response = api_instance.get_auto_order(auto_order_oid, expand=expand)
+    auto_order = auto_order_response.auto_order
+
+    pprint(auto_order)
 except ApiException as e:
-    print("Exception when calling {{classname}}->{{operationId}}: %s\n" % e)
-{{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
+    print ("Exception when calling AutoorderApi->get_auto_order: %s\n" % e)
+```
+
+Retrieve all distribution centers
+```python
+import time
+import ultracart
+from ultracart.rest import ApiException
+from pprint import pprint
+
+ultracart.configuration.api_key['x-ultracart-simple-key'] \
+    = '508052342b482a015d85c69048030a0005a9da7cea5afe015d85c69048030a00'
+
+# create an instance of the API class
+api_instance = ultracart.FulfillmentApi()
+
+# Set the version header
+api_instance.api_client.set_default_header('X-UltraCart-Api-Version', '2017-03-01')
+
+try:
+    # Retrieve distribution centers
+    api_response = api_instance.get_distribution_centers()
+    pprint(api_response)
+except ApiException as e:
+    print ("Exception when calling FulfillmentApi->get_distribution_centers: %s\n" % e)
+
 ```
 
 ## Documentation for API Endpoints
