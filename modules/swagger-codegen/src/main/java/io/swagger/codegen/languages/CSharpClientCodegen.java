@@ -394,6 +394,9 @@ public class CSharpClientCodegen extends AbstractCSharpCodegen {
 
         additionalProperties.put("apiDocPath", apiDocPath);
         additionalProperties.put("modelDocPath", modelDocPath);
+
+        // Perry:  I'm forcing the .nuspec to be generated no matter what.
+        supportingFiles.add(new SupportingFile("nuspec.mustache", packageFolder, packageName + ".nuspec"));
     }
 
     public void setModelPropertyNaming(String naming) {

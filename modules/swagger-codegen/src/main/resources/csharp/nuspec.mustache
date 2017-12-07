@@ -12,7 +12,7 @@
         <authors>$author$</authors>
 
         <!-- Owners are typically nuget.org identities that allow gallery
-             users to earily find other packages by the same owners.  -->
+             users to easily find other packages by the same owners.  -->
         <owners>$author$</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <developmentDependency>false</developmentDependency>
@@ -42,8 +42,10 @@
     <files>
 
         <!-- A readme.txt will be displayed when the package is installed -->
+      <!--
         <file src="..\..\README.md" target="" />
         <file src="..\..\docs\**\*.*" target="docs" />
+        -->
         {{#generatePropertyChanged}}
         <file src="..\..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets" target="build" />
         {{/generatePropertyChanged}}
