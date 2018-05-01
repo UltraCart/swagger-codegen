@@ -239,7 +239,18 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
                                           Map<String, Object> models,
                                           String modelName) throws IOException {
 
-
+//    if(models.containsKey("model")) {
+//      ArrayList modelList = (ArrayList) models.get("model");
+//      try {
+//        LOGGER.info("START generateModelDocumentation(" + modelName + ") model keys");
+//        for (String s : models.keySet()) {
+//          LOGGER.info(s + " : " + models.get(s).getClass().getCanonicalName());
+//        }
+//        LOGGER.info("END generateModelDocumentation(" + modelName + ") model keys");
+//      } catch (Throwable t) {
+//        LOGGER.error("error listing model properties", t);
+//      }
+//    }
 
     for (String templateName : config.modelDocTemplateFiles().keySet()) {
 
